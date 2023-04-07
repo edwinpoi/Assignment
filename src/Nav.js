@@ -1,16 +1,14 @@
 import React from 'react'
+import { Link } from "react-router-dom";
+import logo from "./asset/logo.png";
 
 const Nav = () => {
   return (
-    <div>
-        <img></img>
-        <ul>
-            <li><a>a</a></li>
-            <li><a>b</a></li>
-            <li><a>c</a></li>
-            <li><a>d</a></li>
-            <li><a>e</a></li>
-            <li><a>f</a></li>
+    <div className='navbar'>
+        <img src={logo} className='logoImg'></img>
+        <ul className='hylink'>
+           <li> <Link to="/">Home</Link></li>
+            <li><Link to="/booking">Booking</Link></li>
         </ul>
     </div>
   )
