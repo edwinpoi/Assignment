@@ -1,14 +1,40 @@
 import { useEffect, useState } from "react"
 import React, { useReducer }  from 'react'
-import{fetchAPI} from "../bookingApi"
+import{fetchAPI,submitAPI} from "../bookingApi"
+import { useNavigate } from "react-router-dom";
 
 
 const Main = (props) => {
 
+const updateTimes=(state,action)=>
+{
+  return fetchAPI(state)
+
+}
+const initializeTimes=new Date();
+const [availableTimes,dispatch]=useReducer(updateTimes, fetchAPI(initializeTimes));
 const [date,setDate]=useState(formatDate())
 const [time,setTime]=useState("")
-const [guests,setGuests]=useState(0)
-const [occasion,setOccasion]=useState("")
+const [guests,setGuests]=useState(1)
+const [occasion,setOccasion]=useState("Birthday")
+const navigate = useNavigate();
+
+const submitForm = (event)=>{
+  event.preventDefault();
+  const data={
+    "date":date,
+    "time":time,
+    "guests":guests,
+    "occasion":occasion,
+   }
+  
+   if (submitAPI(data)==true){
+    console.log("ok");
+    navigate("/confirmPage");
+
+   }else console.log("bad")
+}
+
 
 
 function formatDate(date = new Date()) {
@@ -27,42 +53,28 @@ function formatDate(date = new Date()) {
   return year+"-"+month+"-"+day;
 }
 
-
-const updateTimes=(state,action)=>
-{
-  return fetchAPI(state)
-
+const changeTimeFormat =(data)=>{
+  const test=data.slice(8,10)
+  dispatch(test)
 }
 
-const initializeTimes=new Date();
-
-const test=initializeTimes;
-
-
-const [availableTimes,dispatch]=useReducer(updateTimes, fetchAPI(initializeTimes));
-
-const availTimeList= availableTimes.map((number)=>{
+const availTimeList= availableTimes.map((number,index)=>{
   return(
-    <option value={number}>{number}</option>
+    <option key={index} value={number}>{number}</option>
   )
 })
-
-
 
 useEffect(()=>{console.log("Date:",{date})},[date]);
 useEffect(()=>{console.log("Time:",{time})},[time]);
 useEffect(()=>{console.log("Guests:",{guests})},[guests]);
 useEffect(()=>{console.log("Occasion:",{occasion})},[occasion]);
-
 useEffect(()=>{console.log("available Time :",{availableTimes})},[availableTimes]);
-useEffect(()=>{console.log("Test :",{test})},[test]);
-
 
   return (
     <div>
 <form>
 <label for="res-date">Choose date</label>
-   <input type="date" id="res-date" onChange={(e)=>{setDate(e.target.value)}} value={date} />
+   <input type="date" id="res-date" onChange={(e)=>{setDate(e.target.value);changeTimeFormat(e.target.value)}} value={date} />
 
    <label for="res-time">Choose time</label>
    <select id="res-time " onChange={(e)=>{setTime(e.target.value)}} value={time}>
@@ -75,7 +87,7 @@ useEffect(()=>{console.log("Test :",{test})},[test]);
       <option value="Birthday">Birthday</option>
       <option value="Anniversary">Anniversary</option>
    </select>
-   <input type="submit" value="Make Your reservation"/>
+   <input type="submit" value="Make Your reservation" onClick={(e)=>{submitForm(e)}}/>
 
 
 </form>

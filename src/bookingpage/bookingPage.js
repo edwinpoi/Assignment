@@ -1,11 +1,10 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 import BookingForm from './bookingForm'
 
 const BookingPage = () => {
 
   return (
     <div>
-  
         <BookingForm />
     </div>
   )
