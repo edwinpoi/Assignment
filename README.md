@@ -14,7 +14,7 @@ You may also see any lint errors in the console.
 To install the node_modules
 
 
-#A few change or api file:
+# A few change or api file:
 
 ### bookingApi.js
 I added export in front of the function, that make it can export .
