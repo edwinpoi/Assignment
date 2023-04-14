@@ -18,7 +18,7 @@ To install the node_modules
 
 ### booking Page:
 
-The booking page include the bookingForm, I don't use the props way to props the avilableTime to bookingForms, I change these function inside the bookingForm.js
+The booking page include the bookingForm, I don't use the props way to props the avilableTime to bookingForms, I change these function inside the bookingForm.js.
 
 
 ### bookingApi.js:
