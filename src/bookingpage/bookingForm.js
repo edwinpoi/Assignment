@@ -60,7 +60,7 @@ const Main = () => {
     }
     return year + "-" + month + "-" + day;
   }
-
+// Change the input date and make in can put in Api
   const changeTimeFormat = (data) => {
     const test = data.slice(8, 10);
     dispatch(test);
